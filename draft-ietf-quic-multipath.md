@@ -193,7 +193,7 @@ and use of multiple packet number spaces as further explained in the next sectio
 ## Introduction of an Explicit Path Identifier
 
 This extension specifies a new path identifier (Path ID), which is an
-integer between 0 and 2^32-1 (inclusive). Path identifies are generated
+30-bit integer (0 to 2<sup>30</sup>-1). Path identifies are generated
 monotonically increasing and cannot be reused.
 The connection ID of a packet binds the packet to a path identifier, and therefore
 to a packet number space.
@@ -258,7 +258,7 @@ defined as follows:
 - initial_max_path_id (current version uses 0x0f739bbc1b666d09): a
   variable-length integer specifying the maximum path identifier
   an endpoint is willing to maintain at connection initiation.
-  This value MUST NOT exceed 2^32-1, the maximum allowed value for the Path ID due to
+  This value MUST NOT exceed 2<sup>30</sup>-1, the maximum allowed value for the Path ID due to
   restrictions on the nonce calculation (see {{multipath-aead}}).
 
 For example, if initial_max_path_id is set to 1, only connection IDs
@@ -714,7 +714,7 @@ the packet number alone would not guarantee the uniqueness of the nonce.
 Therefore, the nonce N is calculated by combining the packet protection
 IV with the packet number and with the least significant 32 bits of the
 Path ID. In order to guarantee the uniqueness of the nonce, the Path ID
-is limited to a max value of 2^32-1.
+is limited to a max value of 2<sup>30</sup>-1.
 
 To calculate the nonce, a 96-bit path-and-packet-number is composed of the least
 significant 32 bits of the Path ID in network byte order,
@@ -1304,7 +1304,7 @@ MAX_PATH_ID frames contain the following field:
 
 Maximum Path Identifier:
 : The maximum path identifier that the sending endpoint is willing to accept.
-  This value MUST NOT exceed 2^32-1, the maximum allowed value for the Path ID due to
+  This value MUST NOT exceed 2<sup>30</sup>-1, the maximum allowed value for the Path ID due to
   restrictions on the nonce calculation (see {{multipath-aead}}).
   The Maximum Path Identifier value MUST NOT be lower than the value
   advertised in the initial_max_path_id transport parameter.
